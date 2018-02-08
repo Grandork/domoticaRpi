@@ -1,0 +1,86 @@
+<pre>
+<code>
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Firebase Led</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.9.1/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyBgIn6YCJR19sMsX0lZ8Z1fr9K0vCTdt2I",
+    authDomain: "raspberry-web-37235.firebaseapp.com",
+    databaseURL: "https://raspberry-web-37235.firebaseio.com",
+    projectId: "raspberry-web-37235",
+    storageBucket: "raspberry-web-37235.appspot.com",
+    messagingSenderId: "948115876152"
+  };
+firebase.initializeApp(config);
+</script>
+    </head>
+  <body>
+<br>
+<br>
+<br>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 col-md-offset-3">
+        <div class="panel panel-success">
+          <div class="panel-heading">Firebase Led</div>
+          <div class="panel-body">
+             <div class="checkbox">
+               <label>
+                <input type="checkbox" id="checkLed1">LED 1
+              </label>
+              <div class="checkbox">
+               <label>
+                <input type="checkbox" id="checkLed2">LED 2
+              </label>
+             </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+	/*
+	  //Esqueleto de la BD
+	  var db = firebase.database().ref('home').set({
+	    led1:true,
+	    led2:true
+	  });
+	*/
+
+	var db = firebase.database().ref('home');
+	// último estado
+
+	db.on('value', function(data){
+	   $("#checkLed1").prop('checked', data.val().led1);
+	   $("#checkLed2").prop('checked', data.val().led2);
+	});
+
+
+	$("#checkLed1").click(function(){
+	  var estado = $(this).is(':checked');
+	  db.update({
+	    led1:estado
+	  });
+	});
+
+	$("#checkLed2").click(function(){
+	  var estado = $(this).is(':checked');
+	  db.update({
+	    led2:estado
+	  });
+	});
+
+  </script>
+  </body>
+</html>
+
+</code>
+</pre>
